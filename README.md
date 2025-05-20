@@ -35,6 +35,17 @@ cd book-review-api
 npm install
 ```
 
+#
+**Important**: In `.env` file do not forget to add your `MongoDB_URI`, `JWT_SECRET` otherwise it will not work.
+
+```bash
+PORT=3000
+MONGODB_URI=mongodb+srv://<username>:<password>.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
+JWT_SECRET=YOUR_JWT_SECRET
+JWT_EXPIRATION=24h
+```
+#
+
 3. **Start the server**
 
 ```bash
