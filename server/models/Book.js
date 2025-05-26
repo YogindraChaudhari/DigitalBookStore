@@ -25,10 +25,28 @@ const BookSchema = new mongoose.Schema(
       min: [0, "Year cannot be negative"],
       max: [new Date().getFullYear(), "Year cannot be in the future"],
     },
+    price: {
+      type: Number,
+      default: 0,
+      min: [0, "Price cannot be negative"],
+    },
+    coverImage: {
+      type: String,
+      default: null,
+    },
     createdBy: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
       required: true,
+    },
+    isForSale: {
+      type: Boolean,
+      default: true,
+    },
+    stock: {
+      type: Number,
+      default: 1,
+      min: [0, "Stock cannot be negative"],
     },
   },
   {
