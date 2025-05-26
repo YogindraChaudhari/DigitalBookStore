@@ -255,7 +255,7 @@ export default function BookDetails() {
             {user?._id === book.createdBy._id && (
               <div className="flex gap-3">
                 <Link
-                  to={`${VITE_API_URL}/edit-book/${book._id}`}
+                  to={`/edit-book/${book._id}`}
                   className="flex items-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors"
                 >
                   <Edit3 className="w-4 h-4" />
