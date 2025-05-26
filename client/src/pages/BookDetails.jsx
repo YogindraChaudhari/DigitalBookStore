@@ -34,6 +34,7 @@ export default function BookDetails() {
   const [editRating, setEditRating] = useState(5);
   const { token, user } = useUserStore();
   const { addToCart } = useCartStore();
+  const VITE_API_URL = import.meta.env.VITE_API_URL;
 
   const fetchBook = async () => {
     try {
@@ -61,7 +62,7 @@ export default function BookDetails() {
 
     setIsSubmitting(true);
     try {
-      const res = await fetch(`/api/books/${id}/reviews`, {
+      const res = await fetch(`${VITE_API_URL}/api/books/${id}/reviews`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -97,14 +98,17 @@ export default function BookDetails() {
 
     setIsSubmitting(true);
     try {
-      const res = await fetch(`/api/reviews/${editingReview._id}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({ comment: editComment, rating: editRating }),
-      });
+      const res = await fetch(
+        `${VITE_API_URL}/api/reviews/${editingReview._id}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({ comment: editComment, rating: editRating }),
+        }
+      );
       const data = await res.json();
       if (!res.ok) throw new Error(data.message);
       toast.success("Review updated successfully!");
@@ -121,10 +125,13 @@ export default function BookDetails() {
     if (!reviewToDelete) return;
 
     try {
-      const res = await fetch(`/api/reviews/${reviewToDelete._id}`, {
-        method: "DELETE",
-        headers: { Authorization: `Bearer ${token}` },
-      });
+      const res = await fetch(
+        `${VITE_API_URL}/api/reviews/${reviewToDelete._id}`,
+        {
+          method: "DELETE",
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
       const data = await res.json();
       if (!res.ok) throw new Error(data.message);
       toast.success("Review deleted successfully!");
@@ -138,7 +145,7 @@ export default function BookDetails() {
 
   const handleDeleteBook = async () => {
     try {
-      const res = await fetch(`/api/books/${id}`, {
+      const res = await fetch(`${VITE_API_URL}/api/books/${id}`, {
         method: "DELETE",
         headers: { Authorization: `Bearer ${token}` },
       });
@@ -248,7 +255,7 @@ export default function BookDetails() {
             {user?._id === book.createdBy._id && (
               <div className="flex gap-3">
                 <Link
-                  to={`/edit-book/${book._id}`}
+                  to={`${VITE_API_URL}/edit-book/${book._id}`}
                   className="flex items-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors"
                 >
                   <Edit3 className="w-4 h-4" />

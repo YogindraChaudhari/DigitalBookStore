@@ -21,7 +21,7 @@ export default function Settings() {
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [isProcessing, setIsProcessing] = useState(false);
-
+  const VITE_API_URL = import.meta.env.VITE_API_URL;
   // Modals state
   const [showEmailModal, setShowEmailModal] = useState(false);
   const [showPasswordModal, setShowPasswordModal] = useState(false);
@@ -66,7 +66,7 @@ export default function Settings() {
   const handleEmailChange = async () => {
     setIsProcessing(true);
     try {
-      const res = await fetch("/api/users/email", {
+      const res = await fetch(`${VITE_API_URL}/api/users/email`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -89,7 +89,7 @@ export default function Settings() {
   const handlePasswordChange = async () => {
     setIsProcessing(true);
     try {
-      const res = await fetch("/api/users/password", {
+      const res = await fetch(`${VITE_API_URL}/api/users/password`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -112,7 +112,7 @@ export default function Settings() {
   const handleDeleteAccount = async () => {
     setIsProcessing(true);
     try {
-      const res = await fetch("/api/users/delete", {
+      const res = await fetch(`${VITE_API_URL}/api/users/delete`, {
         method: "DELETE",
         headers: { Authorization: `Bearer ${token}` },
       });

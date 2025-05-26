@@ -20,11 +20,12 @@ export default function AddBook() {
   const [stock, setStock] = useState("");
   const [category, setCategory] = useState("");
   const { token } = useUserStore();
+  const VITE_API_URL = import.meta.env.VITE_API_URL;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await fetch("/api/books", {
+      const res = await fetch(`${VITE_API_URL}/api/books`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

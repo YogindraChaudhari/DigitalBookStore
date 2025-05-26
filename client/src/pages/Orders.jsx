@@ -26,12 +26,13 @@ export default function Orders() {
   const [loading, setLoading] = useState(true);
   const [selectedOrder, setSelectedOrder] = useState(null);
   const [showOrderDetail, setShowOrderDetail] = useState(false);
+  const VITE_API_URL = import.meta.env.VITE_API_URL;
 
   useEffect(() => {
     const fetchOrders = async () => {
       try {
         setLoading(true);
-        const res = await fetch("/api/orders", {
+        const res = await fetch(`${VITE_API_URL}/api/orders`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         const data = await res.json();

@@ -23,11 +23,12 @@ export default function Home() {
   const [viewMode, setViewMode] = useState("grid");
   const [sortBy, setSortBy] = useState("title");
   const { addToCart } = useCartStore();
+  const VITE_API_URL = import.meta.env.VITE_API_URL;
 
   const fetchBooks = async () => {
     setIsLoading(true);
     try {
-      const res = await fetch(`/api/books?search=${query}`);
+      const res = await fetch(`${VITE_API_URL}/api/books?search=${query}`);
       const data = await res.json();
       if (data.success) {
         setBooks(data.data);

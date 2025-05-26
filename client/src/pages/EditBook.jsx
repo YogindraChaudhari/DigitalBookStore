@@ -16,6 +16,7 @@ export default function EditBook() {
   const { id } = useParams();
   const navigate = useNavigate();
   const { token } = useUserStore();
+  const VITE_API_URL = import.meta.env.VITE_API_URL;
   const [book, setBook] = useState({
     title: "",
     author: "",
@@ -50,7 +51,7 @@ export default function EditBook() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await fetch(`/api/books/${id}`, {
+      const res = await fetch(`${VITE_API_URL}/api/books/${id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
