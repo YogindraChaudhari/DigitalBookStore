@@ -38,7 +38,7 @@ export default function BookDetails() {
 
   const fetchBook = async () => {
     try {
-      const res = await fetch(`/api/books/${id}`);
+      const res = await fetch(`${VITE_API_URL}/api/books/${id}`);
       const data = await res.json();
       if (!res.ok) throw new Error(data.message);
       setBook(data.data);
