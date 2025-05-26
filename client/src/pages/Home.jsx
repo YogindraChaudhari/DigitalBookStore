@@ -290,7 +290,7 @@ export default function Home() {
                           <BookOpen className="w-16 h-16 text-gray-600 group-hover:text-gray-500 transition-colors" />
                         </div>
 
-                        <Link to={`${VITE_API_URL}/books/${book._id}`}>
+                        <Link to={`${VITE_API_URL}/api/books/${book._id}`}>
                           <h2 className="text-xl font-bold text-white mb-2 hover:text-blue-400 transition-colors line-clamp-2">
                             {book.title}
                           </h2>
@@ -340,7 +340,7 @@ export default function Home() {
                       </div>
 
                       <div className="flex-1 min-w-0">
-                        <Link to={`${VITE_API_URL}/books/${book._id}`}>
+                        <Link to={`${VITE_API_URL}/api/books/${book._id}`}>
                           <h2 className="text-xl font-bold text-white mb-2 hover:text-blue-400 transition-colors">
                             {book.title}
                           </h2>
