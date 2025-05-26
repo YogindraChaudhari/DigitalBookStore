@@ -20,7 +20,7 @@ connectDB();
 // Middleware
 app.use(
   cors({
-    origin: process.env.CORS_ORIGIN || process.env.CORS_ORIGIN_0,
+    origin: [process.env.CORS_ORIGIN, process.env.CORS_ORIGIN_0],
     methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
     credentials: true,
   })
