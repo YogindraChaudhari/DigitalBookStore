@@ -252,7 +252,7 @@ export default function Header() {
                         </div>
                         <div>
                           <p className="text-white font-semibold">
-                            Hi, {user.username} 👋
+                            👋 Hi, {user.username}
                           </p>
                           <p className="text-gray-400 text-sm">
                             Manage your account
