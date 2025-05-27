@@ -61,9 +61,30 @@ const reviewValidation = validate([
   body("comment").optional().trim(),
 ]);
 
+// Email update validation
+const emailUpdateValidation = validate([
+  body("email")
+    .trim()
+    .isEmail()
+    .withMessage("Please provide a valid email address")
+    .normalizeEmail(),
+]);
+
+// Password update validation
+const passwordUpdateValidation = validate([
+  body("password")
+    .isLength({ min: 6 })
+    .withMessage("Password must be at least 6 characters long")
+    .matches(/^(?=.*[A-Za-z])(?=.*\d)/)
+    .withMessage("Password must contain at least one letter and one number"),
+]);
+
 module.exports = {
+  validate,
   signupValidation,
   loginValidation,
   bookValidation,
   reviewValidation,
+  emailUpdateValidation,
+  passwordUpdateValidation,
 };
