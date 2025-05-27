@@ -40,6 +40,21 @@ export default function Home() {
     }
   };
 
+  const searchBooks = async () => {
+    setIsLoading(true);
+    try {
+      const res = await fetch(`${VITE_API_URL}/api/books/search?q=${query}`);
+      const data = await res.json();
+      if (data.success) {
+        setBooks(data.data);
+      }
+    } catch (error) {
+      toast.error("Failed to fetch books");
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   const handleAddToCart = (book) => {
     addToCart(book);
     toast.success(`"${book.title}" added to cart! 🛒`);
@@ -60,6 +75,32 @@ export default function Home() {
   useEffect(() => {
     fetchBooks();
   }, []);
+
+  useEffect(() => {
+    if (query === "") {
+      // When search is cleared, fetch all books
+      fetchBooks();
+    }
+  }, [query]);
+
+  const handleSearch = () => {
+    if (query.trim() === "") {
+      fetchBooks(); // Fetch all books if search is empty
+    } else {
+      searchBooks(); // Search for specific books
+    }
+  };
+
+  const handleSearchInputChange = (e) => {
+    const newQuery = e.target.value;
+    setQuery(newQuery);
+  };
+
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter") {
+      handleSearch();
+    }
+  };
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -166,13 +207,13 @@ export default function Home() {
                   placeholder="Search for books, authors, genres..."
                   className="w-full pl-12 pr-4 py-4 bg-gray-800/50 backdrop-blur-sm border border-gray-600/50 rounded-2xl text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
                   value={query}
-                  onChange={(e) => setQuery(e.target.value)}
-                  onKeyDown={(e) => e.key === "Enter" && fetchBooks()}
+                  onChange={handleSearchInputChange}
+                  onKeyDown={handleKeyDown}
                 />
                 <motion.button
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  onClick={fetchBooks}
+                  onClick={handleSearch}
                   className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-6 py-2 rounded-xl font-semibold transition-all"
                 >
                   Search
@@ -195,6 +236,9 @@ export default function Home() {
                 <TrendingUp className="w-5 h-5 text-blue-400" />
                 <span className="font-semibold">
                   {books.length} {books.length === 1 ? "Book" : "Books"} Found
+                  {query && (
+                    <span className="text-gray-400 ml-2">for "{query}"</span>
+                  )}
                 </span>
               </div>
             </div>
