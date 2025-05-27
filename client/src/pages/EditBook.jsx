@@ -29,7 +29,7 @@ export default function EditBook() {
   useEffect(() => {
     const fetchBook = async () => {
       try {
-        const res = await fetch(`/api/books/${id}`);
+        const res = await fetch(`${VITE_API_URL}/api/books/${id}`);
         const data = await res.json();
         if (!res.ok) throw new Error(data.message);
         setBook({
@@ -46,7 +46,7 @@ export default function EditBook() {
       }
     };
     fetchBook();
-  }, [id, navigate]);
+  }, [id, navigate, VITE_API_URL]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
