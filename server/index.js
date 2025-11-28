@@ -24,6 +24,7 @@ app.use(
     origin: [
       "http://localhost:5173",
       process.env.CORS_ORIGIN,
+      process.enve.CORS_ORIGIN_L,
       process.env.CORS_ORIGIN_0,
     ],
 
